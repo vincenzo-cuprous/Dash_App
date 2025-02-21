@@ -1,6 +1,10 @@
 # app.py
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from routes import serve_home, serve_about, serve_skills, serve_projects, serve_contact
+from home import serve_home
+from about import serve_about
+from skills import serve_skills
+from projects import serve_projects
+from contact import serve_contact
 from settings import PORT, HOST
 
 class PortfolioHandler(BaseHTTPRequestHandler):
