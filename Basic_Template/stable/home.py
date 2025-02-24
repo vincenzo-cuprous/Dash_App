@@ -1,79 +1,112 @@
-# home_2.py
 from dash import html
 import dash_bootstrap_components as dbc
 
 def serve_home():
-    """Returns the home page content for the Dash app with Tailwind CSS, DaisyUI, and Font Awesome icons."""
-    return dbc.Container(
-        [
-            # Full-screen hero section
-            dbc.Row(
-                [
-                    dbc.Col(
-                        [
-                            # Centered content
-                            html.Div(
-                                [
-                                    # Heading with Font Awesome icon
-                                    html.H1(
-                                        [
-                                            html.I(className="fas fa-hand-sparkles mr-4"),  # Font Awesome icon
-                                            "Hi, I'm Cazzano"  # Heading text
-                                        ],
-                                        className="text-5xl font-bold text-base-content"  # Tailwind/DaisyUI classes
-                                    ),
-                                    # Subheading
-                                    html.P(
-                                        "Full Stack Developer | Tech Enthusiast | Problem Solver",  # Subheading text
-                                        className="py-6 text-lg text-base-content"  # Tailwind/DaisyUI classes
-                                    ),
-                                    # Buttons with Font Awesome icons
-                                    dbc.Row(
-                                        [
-                                            # "View My Work" button
-                                            dbc.Col(
-                                                [
-                                                    dbc.Button(
-                                                        [
-                                                            html.I(className="fas fa-eye mr-2"),  # Font Awesome icon
-                                                            "View My Work"  # Button text
-                                                        ],
-                                                        href="/projects",  # Link to projects page
-                                                        color="primary",  # DaisyUI primary color
-                                                        className="btn btn-primary hover:bg-primary-focus"  # Tailwind/DaisyUI classes
-                                                    )
-                                                ],
-                                                width="auto"  # Auto width for column
-                                            ),
-                                            # "Contact Me" button
-                                            dbc.Col(
-                                                [
-                                                    dbc.Button(
-                                                        [
-                                                            html.I(className="fas fa-paper-plane mr-2"),  # Font Awesome icon
-                                                            "Contact Me"  # Button text
-                                                        ],
-                                                        href="/contact",  # Link to contact page
-                                                        color="secondary",  # DaisyUI secondary color
-                                                        className="btn btn-secondary hover:bg-secondary-focus"  # Tailwind/DaisyUI classes
-                                                    )
-                                                ],
-                                                width="auto"  # Auto width for column
-                                            )
-                                        ],
-                                        justify="center",  # Center buttons horizontally
-                                        className="gap-4"  # Tailwind gap utility
-                                    )
-                                ],
-                                className="text-center"  # Center-align content
-                            )
-                        ],
-                        className="max-w-2xl mx-auto"  # Tailwind max-width and margin utilities
-                    )
-                ],
-                justify="center",  # Center content vertically
-                className="min-h-screen bg-base-200"  # Tailwind/DaisyUI classes for full-screen and background
-            )
-        ],
-        fluid=True  # Full-width container
-    )
+    """
+    Returns the home page content for the Dash app with a modern, dynamic layout.
+    Navbar and footer are handled by the main app layout.
+    """
+    return html.Div([
+        # Hero Section
+        html.Section(
+            dbc.Container([
+                dbc.Row([
+                    dbc.Col([
+                        html.H1([
+                            "Creating ",
+                            html.Span("Digital", className="text-primary"),
+                            " Experiences"
+                        ], className="text-6xl font-bold mb-6 leading-tight"),
+                        html.P(
+                            "Full Stack Developer crafting innovative solutions with modern technologies",
+                            className="text-xl text-base-content/80 mb-8"
+                        ),
+                        dbc.Row([
+                            dbc.Col(
+                                dbc.Button([
+                                    html.I(className="fas fa-rocket mr-2"),
+                                    "View Projects"
+                                ], href="/projects", size="lg", 
+                                   className="btn btn-primary hover:scale-105 transition-transform"),
+                                width="auto"
+                            ),
+                            dbc.Col(
+                                dbc.Button([
+                                    html.I(className="fas fa-paper-plane mr-2"),
+                                    "Get in Touch"
+                                ], href="/contact", size="lg", outline=True,
+                                   className="btn btn-outline hover:scale-105 transition-transform"),
+                                width="auto"
+                            ),
+                        ], className="gap-4"),
+                    ], md=8, lg=6),
+                ], className="min-h-[90vh] items-center"),
+            ], fluid=True),
+            className="bg-gradient-to-br from-base-100 to-base-200"
+        ),
+
+        # Skills Section
+        html.Section(
+            dbc.Container([
+                dbc.Row([
+                    dbc.Col([
+                        html.H2("Skills & Expertise", 
+                               className="text-4xl font-bold mb-12 text-center"),
+                        dbc.Row([
+                            # Skill Cards
+                            dbc.Col(create_skill_card(
+                                "Frontend", 
+                                "React, Vue, TailwindCSS",
+                                "fas fa-code"
+                            ), md=4),
+                            dbc.Col(create_skill_card(
+                                "Backend",
+                                "Python, Node.js, PostgreSQL",
+                                "fas fa-server"
+                            ), md=4),
+                            dbc.Col(create_skill_card(
+                                "DevOps",
+                                "Docker, AWS, CI/CD",
+                                "fas fa-cloud"
+                            ), md=4),
+                        ], className="gap-6"),
+                    ], className="py-20")
+                ])
+            ], fluid=True),
+            className="bg-base-100"
+        ),
+
+        # Quick Contact Section
+        html.Section(
+            dbc.Container([
+                dbc.Row([
+                    dbc.Col([
+                        html.H2("Let's Work Together", 
+                               className="text-4xl font-bold mb-6 text-center"),
+                        html.P(
+                            "Have a project in mind? Let's discuss how we can make it happen.",
+                            className="text-xl text-center text-base-content/80 mb-8"
+                        ),
+                        html.Div([
+                            dbc.Button([
+                                html.I(className="fas fa-envelope mr-2"),
+                                "Start a Conversation"
+                            ], href="/contact", size="lg",
+                               className="btn btn-primary hover:scale-105 transition-transform"),
+                        ], className="text-center")
+                    ], md=8, className="mx-auto"),
+                ], className="py-20")
+            ], fluid=True),
+            className="bg-base-200"
+        ),
+    ])
+
+def create_skill_card(title, description, icon_class):
+    """Helper function to create consistent skill cards."""
+    return html.Div([
+        html.Div([
+            html.I(className=f"{icon_class} text-3xl text-primary mb-4"),
+            html.H3(title, className="text-xl font-bold mb-2"),
+            html.P(description, className="text-base-content/70"),
+        ], className="p-6 rounded-xl bg-base-200 hover:scale-105 transition-transform")
+    ])
