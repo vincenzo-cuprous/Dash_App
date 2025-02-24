@@ -3,16 +3,16 @@ from dash import html
 import dash_bootstrap_components as dbc
 
 def serve_skills():
-    """Returns the skills page content for the Dash app."""
+    """Returns the skills page content for the Dash app with Tailwind CSS, DaisyUI, and Font Awesome icons."""
     return dbc.Container([
         dbc.Row([
             dbc.Col([
-                html.H2("My Skills", className="text-3xl font-bold text-center mb-8"),
+                html.H2("My Skills", className="text-3xl font-bold text-center mb-8 text-primary"),
                 dbc.Row([
                     dbc.Col([
                         dbc.Card([
                             dbc.CardBody([
-                                html.H3([html.I(className="fas fa-code mr-2"), "Frontend"], className="card-title"),
+                                html.H3([html.I(className="fas fa-code mr-2"), "Frontend"], className="card-title text-primary"),
                                 html.Div([
                                     dbc.Badge("HTML+CSS+Javascript", color="primary", className="badge badge-primary"),
                                     dbc.Badge("Javascript+React", color="primary", className="badge badge-primary"),
@@ -27,7 +27,7 @@ def serve_skills():
                     dbc.Col([
                         dbc.Card([
                             dbc.CardBody([
-                                html.H3([html.I(className="fas fa-server mr-2"), "Backend"], className="card-title"),
+                                html.H3([html.I(className="fas fa-server mr-2"), "Backend"], className="card-title text-secondary"),
                                 html.Div([
                                     dbc.Badge("Node.js+Express", color="secondary", className="badge badge-secondary"),
                                     dbc.Badge("Python+Flask", color="secondary", className="badge badge-secondary"),
@@ -41,7 +41,7 @@ def serve_skills():
                     dbc.Col([
                         dbc.Card([
                             dbc.CardBody([
-                                html.H3([html.I(className="fas fa-cloud mr-2"), "DevOps"], className="card-title"),
+                                html.H3([html.I(className="fas fa-cloud mr-2"), "DevOps"], className="card-title text-accent"),
                                 html.Div([
                                     dbc.Badge("Docker", color="accent", className="badge badge-accent"),
                                     dbc.Badge("Kubernetes", color="accent", className="badge badge-accent"),
@@ -54,5 +54,5 @@ def serve_skills():
                     ], md=6, lg=4)
                 ], className="grid md:grid-cols-2 lg:grid-cols-3 gap-8")
             ])
-        ], className="min-h-screen py-20")
+        ], className="min-h-screen py-20 bg-base-200")
     ], fluid=True)
