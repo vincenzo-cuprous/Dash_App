@@ -19,31 +19,31 @@ def create_navbar(id='navbar', active_section='home'):
                         dbc.NavItem(dbc.NavLink(
                             [html.I(className="fas fa-home mr-2"), "Home"],
                             href="/",
-                            active=active_section == "home",
+                            active=active_section == "home",  # Set active state for Home
                             className="btn btn-ghost"
                         )),
                         dbc.NavItem(dbc.NavLink(
                             [html.I(className="fas fa-user mr-2"), "About"],
                             href="/about",
-                            active=active_section == "about",
+                            active=active_section == "about",  # Set active state for About
                             className="btn btn-ghost"
                         )),
                         dbc.NavItem(dbc.NavLink(
                             [html.I(className="fas fa-tools mr-2"), "Skills"],
                             href="/skills",
-                            active=active_section == "skills",
+                            active=active_section == "skills",  # Set active state for Skills
                             className="btn btn-ghost"
                         )),
                         dbc.NavItem(dbc.NavLink(
                             [html.I(className="fas fa-project-diagram mr-2"), "Projects"],
                             href="/projects",
-                            active=active_section == "projects",
+                            active=active_section == "projects",  # Set active state for Projects
                             className="btn btn-ghost"
                         )),
                         dbc.NavItem(dbc.NavLink(
                             [html.I(className="fas fa-envelope mr-2"), "Contact"],
                             href="/contact",
-                            active=active_section == "contact",
+                            active=active_section == "contact",  # Set active state for Contact
                             className="btn btn-ghost"
                         )),
                         dbc.NavItem(dbc.Button(
