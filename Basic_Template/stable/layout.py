@@ -3,7 +3,7 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 def create_navbar(id='navbar', active_section='home'):
-    """Creates the navigation bar component"""
+    """Creates the navigation bar component with Font Awesome icons"""
     return dbc.Navbar(
         dbc.Container([
             dbc.Row([
@@ -47,7 +47,7 @@ def create_navbar(id='navbar', active_section='home'):
                             className="btn btn-ghost"
                         )),
                         dbc.NavItem(dbc.Button(
-                            html.I(className="fas fa-moon"),
+                            [html.I(className="fas fa-moon mr-2"), "Toggle Theme"],
                             id="theme-toggle",
                             className="btn btn-ghost"
                         ))
@@ -63,9 +63,26 @@ def create_navbar(id='navbar', active_section='home'):
     )
 
 def create_footer():
-    """Creates the footer component with theme toggle functionality"""
+    """Creates the footer component with theme toggle functionality, Tailwind CSS, DaisyUI, and Font Awesome CDN"""
     return html.Footer([
+        # Tailwind CSS CDN Link
+        html.Link(
+            rel="stylesheet",
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+        ),
+        # DaisyUI CDN Link
+        html.Link(
+            rel="stylesheet",
+            href="https://cdn.jsdelivr.net/npm/daisyui@4.4.2/dist/full.css"
+        ),
+        # Font Awesome CDN Link
+        html.Link(
+            rel="stylesheet",
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        ),
+        # Theme store for light/dark mode
         dcc.Store(id="theme-store", data="light"),
+        # JavaScript for theme toggling
         html.Script("""
             function toggleTheme() {
                 const html = document.documentElement;
