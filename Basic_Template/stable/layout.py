@@ -1,103 +1,129 @@
-# layout.py
+# layout_2.py
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
-def create_navbar(id='navbar', active_section='home'):
-    """Creates the navigation bar component with Font Awesome icons"""
+def create_navbar(active_section='home'):
+    """Creates the navigation bar component with Font Awesome icons and DaisyUI/Tailwind styling."""
     return dbc.Navbar(
-        dbc.Container([
-            dbc.Row([
-                dbc.Col([
-                    html.A(
-                        "My Portfolio",
-                        href="/",
-                        className="navbar-brand text-xl font-bold"
-                    )
-                ]),
-                dbc.Col([
-                    dbc.Nav([
-                        dbc.NavItem(dbc.NavLink(
+        dbc.Container(
+            [
+                # Portfolio Brand
+                html.A(
+                    "My Portfolio",
+                    href="/",
+                    className="text-xl font-bold text-base-content"  # DaisyUI text color
+                ),
+                # Navigation Links
+                dbc.Nav(
+                    [
+                        dbc.NavLink(
                             [html.I(className="fas fa-home mr-2"), "Home"],
                             href="/",
-                            active=active_section == "home",  # Set active state for Home
-                            className="btn btn-ghost"
-                        )),
-                        dbc.NavItem(dbc.NavLink(
+                            active=active_section == "home",  # Active state for Home
+                            className=f"btn btn-ghost {'btn-active' if active_section == 'home' else ''}"  # DaisyUI active class
+                        ),
+                        dbc.NavLink(
                             [html.I(className="fas fa-user mr-2"), "About"],
                             href="/about",
-                            active=active_section == "about",  # Set active state for About
-                            className="btn btn-ghost"
-                        )),
-                        dbc.NavItem(dbc.NavLink(
+                            active=active_section == "about",  # Active state for About
+                            className=f"btn btn-ghost {'btn-active' if active_section == 'about' else ''}"  # DaisyUI active class
+                        ),
+                        dbc.NavLink(
                             [html.I(className="fas fa-tools mr-2"), "Skills"],
                             href="/skills",
-                            active=active_section == "skills",  # Set active state for Skills
-                            className="btn btn-ghost"
-                        )),
-                        dbc.NavItem(dbc.NavLink(
+                            active=active_section == "skills",  # Active state for Skills
+                            className=f"btn btn-ghost {'btn-active' if active_section == 'skills' else ''}"  # DaisyUI active class
+                        ),
+                        dbc.NavLink(
                             [html.I(className="fas fa-project-diagram mr-2"), "Projects"],
                             href="/projects",
-                            active=active_section == "projects",  # Set active state for Projects
-                            className="btn btn-ghost"
-                        )),
-                        dbc.NavItem(dbc.NavLink(
+                            active=active_section == "projects",  # Active state for Projects
+                            className=f"btn btn-ghost {'btn-active' if active_section == 'projects' else ''}"  # DaisyUI active class
+                        ),
+                        dbc.NavLink(
                             [html.I(className="fas fa-envelope mr-2"), "Contact"],
                             href="/contact",
-                            active=active_section == "contact",  # Set active state for Contact
-                            className="btn btn-ghost"
-                        )),
-                        dbc.NavItem(dbc.Button(
-                            [html.I(className="fas fa-moon mr-2"), "Toggle Theme"],
+                            active=active_section == "contact",  # Active state for Contact
+                            className=f"btn btn-ghost {'btn-active' if active_section == 'contact' else ''}"  # DaisyUI active class
+                        ),
+                        # Theme Toggle Button
+                        dbc.Button(
+                            html.I(className="fas fa-moon"),
                             id="theme-toggle",
                             className="btn btn-ghost"
-                        ))
-                    ], className="ml-auto")
-                ])
-            ])
-        ]),
-        color="primary",
-        dark=True,
+                        )
+                    ],
+                    className="ml-auto flex gap-4",  # Tailwind flex and gap utilities
+                    navbar=True
+                )
+            ],
+            fluid=True,
+            className="px-4"  # Tailwind padding
+        ),
         sticky="top",
-        className="shadow-lg",
-        id=id  # Ensure the navbar has an ID
+        className="bg-base-200 shadow-lg z-50",  # DaisyUI background and shadow
+        id="navbar"
     )
 
 def create_footer():
-    """Creates the footer component with theme toggle functionality, Tailwind CSS, DaisyUI, and Font Awesome CDN"""
-    return html.Footer([
-        # Tailwind CSS CDN Link
-        html.Link(
-            rel="stylesheet",
-            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-        ),
-        # DaisyUI CDN Link
-        html.Link(
-            rel="stylesheet",
-            href="https://cdn.jsdelivr.net/npm/daisyui@4.4.2/dist/full.css"
-        ),
-        # Font Awesome CDN Link
-        html.Link(
-            rel="stylesheet",
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        ),
-        # Theme store for light/dark mode
-        dcc.Store(id="theme-store", data="light"),
-        # JavaScript for theme toggling
-        html.Script("""
-            function toggleTheme() {
-                const html = document.documentElement;
-                const currentTheme = html.getAttribute('data-theme');
-                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                html.setAttribute('data-theme', newTheme);
-                return newTheme;
-            }
-            document.getElementById('theme-toggle').onclick = function() {
-                const newTheme = toggleTheme();
-                dash_clientside.set_props('theme-store', { data: newTheme });
-            };
-        """)
-    ])
+    """Creates the footer component with theme toggle functionality and CDN links."""
+    return html.Footer(
+        [
+            # Tailwind CSS CDN
+            html.Link(
+                rel="stylesheet",
+                href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            ),
+            # DaisyUI CDN
+            html.Link(
+                rel="stylesheet",
+                href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css"
+            ),
+            # Font Awesome CDN
+            html.Link(
+                rel="stylesheet",
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            ),
+            # Theme Store (for light/dark mode)
+            dcc.Store(id="theme-store", data="light"),
+            # JavaScript for Theme Toggling
+            html.Script(
+                """
+                function toggleTheme() {
+                    const html = document.documentElement;
+                    const currentTheme = html.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    html.setAttribute('data-theme', newTheme);
+                    return newTheme;
+                }
+                document.getElementById('theme-toggle').onclick = function() {
+                    const newTheme = toggleTheme();
+                    dash_clientside.set_props('theme-store', { data: newTheme });
+                };
+                """
+            )
+        ]
+    )
 
 def serve_page_content(children):
-    """Serves just the page content without the base layout"""
-    return html.Div(children, id="page-content")
+    """Serves the page content with the correct background and layout."""
+    return html.Div(
+        children,
+        className="bg-base-100 min-h-screen",  # DaisyUI background and full height
+        id="page-content"
+    )
+
+def create_layout(active_section='home', children=None):
+    """Creates the full layout with navbar, content, and footer."""
+    return html.Div(
+        [
+            # Navbar
+            create_navbar(active_section=active_section),
+            # Page Content
+            serve_page_content(children),
+            # Footer
+            create_footer()
+        ],
+        className="flex flex-col",  # Tailwind flex layout
+        id="main-layout"
+    )
