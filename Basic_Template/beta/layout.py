@@ -1,4 +1,4 @@
-# layout_2.py
+# layout.py
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
@@ -86,20 +86,23 @@ def create_footer():
             ),
             # Theme Store (for light/dark mode)
             dcc.Store(id="theme-store", data="light"),
-            # JavaScript for Theme Toggling
+            # JavaScript to apply the theme
             html.Script(
                 """
-                function toggleTheme() {
-                    const html = document.documentElement;
-                    const currentTheme = html.getAttribute('data-theme');
-                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                    html.setAttribute('data-theme', newTheme);
-                    return newTheme;
+                // Function to apply the theme
+                function applyTheme(theme) {
+                    const htmlElement = document.documentElement;
+                    htmlElement.setAttribute('data-theme', theme);
                 }
-                document.getElementById('theme-toggle').onclick = function() {
-                    const newTheme = toggleTheme();
-                    dash_clientside.set_props('theme-store', { data: newTheme });
-                };
+
+                // Listen for changes to the theme-store
+                dash_clientside.onUpdate('theme-store', function(data) {
+                    applyTheme(data.data);
+                });
+
+                // Apply the initial theme
+                const initialTheme = document.getElementById('theme-store').getAttribute('data');
+                applyTheme(initialTheme);
                 """
             )
         ]
