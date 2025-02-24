@@ -58,7 +58,8 @@ def create_navbar(id='navbar', active_section='home'):
         color="primary",
         dark=True,
         sticky="top",
-        className="shadow-lg"
+        className="shadow-lg",
+        id=id  # Ensure the navbar has an ID
     )
 
 def create_footer():

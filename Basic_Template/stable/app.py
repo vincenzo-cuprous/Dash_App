@@ -7,7 +7,7 @@ from about import serve_about
 from skills import serve_skills
 from projects import serve_projects
 from contact import serve_contact
-from layout import create_navbar, create_footer
+from layout import create_navbar, create_footer  # Ensure create_footer is imported
 from settings import PORT, HOST
 
 # Initialize the Dash app
@@ -21,7 +21,7 @@ app.layout = html.Div([
     # Content div for pages
     html.Div(id='page-content'),
     # Footer will be rendered once here
-    create_footer()
+    create_footer()  # Ensure the footer is included in the layout
 ])
 
 # Callback to update active section in navbar
